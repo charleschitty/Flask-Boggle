@@ -31,4 +31,16 @@ function displayBoard(board) {
 }
 
 
+// async function scoreWord() {
+//   const response = await fetch(`/api/score-word`, {
+//     method: "POST",
+//     body: JSON.stringify({ /** your data goes here */ }),
+//     headers: {
+//       "content-type": "application/json",
+//     }
+//   });
+
+//   const { result } = await response.json();
+// }
+
 start();

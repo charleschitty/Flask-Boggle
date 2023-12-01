@@ -1,12 +1,21 @@
 from flask import Flask, request, render_template, jsonify
 from uuid import uuid4
 
+from flask_debugtoolbar import DebugToolbarExtension
+
 from boggle import BoggleGame
 
 app = Flask(__name__)
 app.config["SECRET_KEY"] = "this-is-secret"
 
 # The boggle games created, keyed by game id
+
+debug = DebugToolbarExtension(app)
+
+debug = True
+
+
+
 games = {}
 
 
@@ -23,10 +32,33 @@ def new_game():
 
     # get a unique string id for the board we're creating
     game_id = str(uuid4())
-    # print(game_id)
     game = BoggleGame()
     games[game_id] = game
-    #{
-    # 'f50ec0b7-f960-400d-91f0-c42a6d44e3d0':
-    # }
+
     return jsonify({"gameId": game_id, "board": game.board})
+
+@app.post("/api/score-word")
+def score_word():
+
+    print("/api/score-word", request.json)
+    response = request.json
+    word = response["word"]
+    game_id = response["gameId"]
+    game = games[game_id]
+
+    if game.is_word_in_word_list(word):
+        if game.check_word_on_board(word):
+            result = "ok"
+        else:
+            result = "not-on-board"
+    else:
+        result = "not-word"
+
+    #Get a word from JSON data
+    #Get game id from JSON data
+    #Take that word chec kif word is in word list with fn above
+    #If it is in word_list, check if that word is on the board
+    #Whatever this returns- we return as a json response
+
+
+    return jsonify({"result": result})
