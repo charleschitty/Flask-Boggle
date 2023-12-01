@@ -18,16 +18,33 @@ class BoggleAppTestCase(TestCase):
         app.config['TESTING'] = True
 
     def test_homepage(self):
-        """Make sure information is in the session and HTML is displayed"""
+        """Make sure information is in the session and HTML is displayed based
+        on if the table displaying the board and form exists"""
 
         with app.test_client() as client:
             response = client.get('/')
-            ...
+            html = response.get_data(as_text=True)
+
+            self.assertEqual(response.status_code, 200)
+            #could also look by comment in html
+            self.assertIn('<table class="board">', html)
             # test that you're getting a template
 
     def test_api_new_game(self):
         """Test starting a new game."""
 
         with app.test_client() as client:
-            ...
+            response = client.post('/api/new-game')
+            #response.json
+            # json_data = response.get_data(as_text=True)
+            #why does response.json not work but response.get_json does
+            json_obj = response.get_json()
+            # breakpoint()
+
+            self.assertEqual(response.status_code, 200)
+            self.assertIn(json_obj['gameId'], games)
+            self.assertIn('gameId', json_obj)
+            self.assertIsInstance(json_obj["gameId"], str)
+            self.assertIsInstance(json_obj["board"], list)
+            self.assertIsInstance(json_obj["board"][0], list)
             # write a test for this route

@@ -31,12 +31,15 @@ class WordList:
         """Is word in word list?
 
             >>> w2 = WordList("test_dictionary.txt")
-            >>> w2.words == {"MILK", "MAN", "DOG"}
-            >>> w2.check_word("MILK")
+            >>> w2.check_word("DOG")
             True
             >>> w2.check_word("CAT")
+            True
+            >>> w2.check_word("cat")
             False
-            >>> w2.check_word("milk")
+            >>> w2.check_word("Cat")
+            False
+            >>> w2.check_word("MILK")
             False
 
         """

@@ -23,7 +23,10 @@ def new_game():
 
     # get a unique string id for the board we're creating
     game_id = str(uuid4())
+    # print(game_id)
     game = BoggleGame()
     games[game_id] = game
-
-    return {"gameId": "need-real-id", "board": "need-real-board"}
+    #{
+    # 'f50ec0b7-f960-400d-91f0-c42a6d44e3d0':
+    # }
+    return jsonify({"gameId": game_id, "board": game.board})
