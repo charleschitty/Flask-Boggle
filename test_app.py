@@ -38,6 +38,7 @@ class BoggleAppTestCase(TestCase):
             #response.json
             # json_data = response.get_data(as_text=True)
             #why does response.json not work but response.get_json does
+            # json_obj = response.json()
             json_obj = response.get_json()
             # breakpoint()
 
