@@ -26,9 +26,34 @@ async function start() {
 /** Display board */
 
 function displayBoard(board) {
+  const board_length = gameId.board_size //5
+
+  $table.empty()
+
+  $tbody = $("<tbody>")
+
+  $table.append($tbody)
+
+  for (let row_index = 0; row_index < board_length; row_index++){
+    const $row = $("<tr>")
+
+    for (let cell = 0; cell < board_length; cell++){
+      const $cell = $("<td>")
+
+      $table.append($cell)
+    }
+
+    $table.append($row)
+  }
+
+  board.append($table)
+
+
+
   // $table.empty();
   // loop over board and create the DOM tr/td structure
 }
+
 
 //create handleSubmit function for event handling form submission
 
