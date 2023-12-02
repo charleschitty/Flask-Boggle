@@ -39,6 +39,9 @@ def new_game():
 
 @app.post("/api/score-word")
 def score_word():
+    """Checks that the given word is playable and on the board
+    Returns a json string with a result validating whether it's
+    on the board"""
 
     print("/api/score-word", request.json)
     response = request.json

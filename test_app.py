@@ -48,3 +48,42 @@ class BoggleAppTestCase(TestCase):
             self.assertIsInstance(json_obj["board"], list)
             self.assertIsInstance(json_obj["board"][0], list)
             # write a test for this route
+
+
+    def test_api_score_word(self):
+        """Test if the word is on the board"""
+
+        with app.test_client() as client:
+            resp = client.post('/api/new-game')
+            game_data = resp.get_json()
+            game_id = game_data["gameId"]
+            board = games[game_id].board
+            board[0] = ["V","I","D","E","O"]
+            board[1] = ["Z","Z","Z","Z","Z"]
+            board[2] = ["Z","Z","Z","Z","Z"]
+            board[3] = ["Z","Z","Z","Z","Z"]
+            board[4] = ["Z","Z","Z","Z","Z"]
+
+            resp_sw = client.post('/api/score-word',
+                                  json={"gameId": game_id,
+                                        "word": "VIDEO"})
+            score_word_dict = resp_sw.get_json()
+            self.assertIn("ok", score_word_dict["result"])
+
+            resp_sw = client.post('/api/score-word',
+                                  json={"gameId": game_id,
+                                        "word": "EDIV"})
+            score_word_dict = resp_sw.get_json()
+            self.assertIn("not-word", score_word_dict["result"])
+
+            resp_sw = client.post('/api/score-word',
+                                  json={"gameId": game_id,
+                                        "word": "AARGH"})
+            score_word_json = resp_sw.get_json()
+            self.assertIn("not-on-board", score_word_json["result"])
+
+            # resp_sw = client.post('/api/score-word',
+            #                       json={"gameId": game_id,
+            #                             "word": "ANTICONSTITUTIONALIST"})
+            # score_word_json = resp_sw.get_json()
+            # self.assertIn("not-on-board", score_word_json["result"])
