@@ -79,11 +79,11 @@ class BoggleAppTestCase(TestCase):
             resp_sw = client.post('/api/score-word',
                                   json={"gameId": game_id,
                                         "word": "AARGH"})
-            score_word_json = resp_sw.get_json()
-            self.assertIn("not-on-board", score_word_json["result"])
+            score_word_dict = resp_sw.get_json()
+            self.assertIn("not-on-board", score_word_dict["result"])
 
             # resp_sw = client.post('/api/score-word',
             #                       json={"gameId": game_id,
             #                             "word": "ANTICONSTITUTIONALIST"})
-            # score_word_json = resp_sw.get_json()
-            # self.assertIn("not-on-board", score_word_json["result"])
+            # score_word_dict = resp_sw.get_json()
+            # self.assertIn("not-on-board", score_word_dict["result"])

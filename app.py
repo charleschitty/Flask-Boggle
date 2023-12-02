@@ -39,14 +39,15 @@ def new_game():
 
 @app.post("/api/score-word")
 def score_word():
-    """Checks that the given word is playable and on the board
-    Returns a json string with a result validating whether it's
-    on the board"""
+    """
+    Receives a payload of a JSON string containing a word and a gameId,
+    Checks that the given word is playable and on the board,
+    Returns JSON: {result} with values of 'ok', 'not-on-board', or 'not-word' """
 
     print("/api/score-word", request.json)
-    response = request.json
-    word = response["word"]
-    game_id = response["gameId"]
+    score_word_data = request.json
+    word = score_word_data["word"]
+    game_id = score_word_data["gameId"]
     game = games[game_id]
 
     if game.is_word_in_word_list(word):

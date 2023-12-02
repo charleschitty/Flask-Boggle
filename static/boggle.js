@@ -30,6 +30,7 @@ function displayBoard(board) {
   // loop over board and create the DOM tr/td structure
 }
 
+//create handleSubmit function for event handling form submission
 
 // async function scoreWord() {
 //   const response = await fetch(`/api/score-word`, {
